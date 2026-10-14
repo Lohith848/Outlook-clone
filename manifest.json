@@ -1,0 +1,25 @@
+{
+  "name": "Outlook",
+  "short_name": "Outlook",
+  "description": "Outlook interface clone \u2014 mail stays inside the app",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#2b2b2b",
+  "icons": [
+    {
+      "src": "icons/Outlook_Mobile-Logo.wine.svg",
+      "sizes": "192x192 512x512 any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/Outlook_Mobile-Logo.wine.svg",
+      "sizes": "192x192 512x512 any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

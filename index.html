@@ -1,0 +1,177 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Outlook</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2b2b2b"><link rel="manifest" href="manifest.json"><link rel="icon" type="image/svg+xml" href="icons/Outlook_Mobile-Logo.wine.svg"><link rel="apple-touch-icon" href="icons/Outlook_Mobile-Logo.wine.svg"><meta name="apple-mobile-web-app-title" content="Outlook"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="description" content="Outlook interface clone with local-only mail"><meta name="apple-mobile-web-app-capable" content="yes">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--bar:#2b2b2b;--card:#1f1f1f;--tx:#fff;--tx2:#c4c4c4;--ac:#5eb0f8;--ln:#2e2e2e;--on:#000;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#fff;--bar:#f3f3f3;--card:#f7f7f7;--tx:#1b1b1b;--tx2:#555;--ac:#0f6cbd;--ln:#e3e3e3;--on:#fff;color-scheme:light}}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--tx);font-family:Roboto,"Segoe UI",system-ui,sans-serif}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+#app{max-width:480px;margin:0 auto;height:100%;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.hd{height:58px;background:var(--bar);display:flex;align-items:center;gap:4px;padding:0 12px;flex:none}
+.hd button{background:none;border:0;color:var(--tx);padding:8px;display:flex;cursor:pointer}
+.ti{font-size:24px;font-weight:500;margin-left:10px}.sp{flex:1}
+.hav{display:flex;margin-left:4px;cursor:pointer}
+.qi{flex:1;background:none;border:0;outline:0;color:var(--tx);font:inherit;font-size:18px;margin-left:10px;min-width:0}
+.sc{flex:1;overflow-y:auto}
+.av{border-radius:50%;object-fit:cover;display:inline-flex;align-items:center;justify-content:center;color:#fff;flex:none}
+.rw{display:flex;gap:14px;padding:14px 16px 14px 28px;position:relative;cursor:pointer}
+.dot{position:absolute;left:9px;top:36px;width:11px;height:11px;border-radius:50%;background:var(--ac)}
+.rb{flex:1;min-width:0}.r1{display:flex;justify-content:space-between;gap:8px}
+.el{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.r1 b{font-weight:400;font-size:18px}.tm{font-size:13px;color:var(--tx2);padding-top:4px}.tm.u{color:var(--ac)}
+.r2{font-weight:700;font-size:16px;color:var(--tx2);margin-top:2px}.r2.u{color:var(--tx)}
+.r3{font-size:15px;color:var(--tx2);margin-top:2px}
+.sec{padding:16px;font-weight:500;font-size:16px;border-top:1px solid var(--ln)}
+.em{text-align:center;color:var(--tx2);padding:80px 20px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.tb{display:flex;height:64px;border-top:1px solid var(--ln);background:var(--bg);flex:none}
+.tb button{flex:1;background:none;border:0;color:var(--tx2);font:inherit;font-size:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer}
+.tb .on{color:var(--ac)}
+.fab{position:absolute;right:20px;bottom:84px;width:58px;height:58px;border-radius:50%;background:var(--ac);border:0;color:var(--on);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px #0007;z-index:10;cursor:pointer}
+.ov{position:absolute;inset:0;background:var(--bg);display:flex;flex-direction:column;z-index:20}
+.sj{font-size:22px;font-weight:500;padding:22px 16px;margin:0;background:var(--bar)}
+.mc{padding:16px;border-bottom:1px solid var(--ln);background:var(--card)}
+.mh{display:flex;gap:12px;align-items:center}.mn{font-size:17px}.ms{font-size:14px;color:var(--tx2)}.md{font-size:13px;color:var(--ac)}
+.mb{white-space:pre-wrap;font-size:17px;line-height:1.45;margin-top:18px;word-break:break-word}
+.caut{border:2px solid #cfcfcf;background:#322a00;color:#fff;padding:8px 10px;font-size:15px;margin-top:14px}.caut b{color:#19b8c4}
+.rp{padding:10px 12px;border-top:1px solid var(--ln);flex:none}
+.rp button{width:100%;height:46px;border-radius:24px;border:1px solid var(--ln);background:none;color:var(--tx2);font:inherit;font-size:17px;display:flex;align-items:center;gap:14px;padding:0 18px;cursor:pointer}
+.fr{display:flex;align-items:center;gap:10px;padding:2px 16px;border-bottom:1px solid var(--ln)}
+.fr label{width:46px;color:var(--tx2);font-size:15px;flex:none}
+input,textarea{background:none;border:0;color:var(--tx);font:inherit;font-size:17px;padding:13px 0;outline:0;min-width:0}
+.fr input{flex:1}textarea{width:100%;min-height:240px;padding:16px;resize:none}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:9px 0;flex:1}
+.ch{white-space:nowrap;border:1px solid var(--ln);background:none;color:var(--tx);border-radius:18px;padding:7px 13px;font:inherit;font-size:14px;cursor:pointer}
+.ch.on{background:var(--ac);color:var(--on);border-color:var(--ac)}
+.hint{padding:10px 16px;color:var(--tx2);font-size:13px}
+.bk{position:absolute;inset:0;background:#0009;z-index:30}
+.dw{position:absolute;left:0;top:0;bottom:0;width:80%;background:var(--card);z-index:31;overflow-y:auto;padding-top:8px}
+.dh{padding:18px 20px;font-weight:500}.fo{display:flex;align-items:center;gap:24px;padding:15px 20px;font-size:19px;cursor:pointer}
+.fo.on{color:var(--ac)}.fo span{flex:1}.cn{background:#1b4a7a;color:#fff;font-size:14px;border-radius:4px;padding:2px 8px}
+.dw hr{border:0;border-top:1px solid var(--ln);margin:8px 0}
+.sh{position:absolute;left:0;right:0;bottom:0;background:var(--card);border-radius:20px 20px 0 0;padding:20px 20px calc(20px + env(safe-area-inset-bottom,0px));z-index:31;max-height:92%;overflow:auto}
+.sh h3{margin:0 0 14px;font-weight:500;font-size:20px}.sh label{display:block;color:var(--tx2);font-size:13px;margin-top:10px}
+.sh input{width:100%;border-bottom:1px solid var(--ln)}
+.pv{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--ac);font-size:13px;cursor:pointer}
+.bt{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.bt button{border:1px solid var(--ln);background:none;color:var(--tx);border-radius:20px;padding:10px 18px;font:inherit;cursor:pointer}
+.bt .pr{background:var(--ac);color:var(--on);border:0}.bt .dg{color:#f2685f}
+.wk{display:flex;background:var(--bar);padding:6px 8px 14px;flex:none}.wd{flex:1;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:18px}
+.wd small{font-size:17px;font-weight:500}.wd span{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--tx2)}
+.wd .td{background:var(--ac);color:var(--on)}
+.ag{padding:16px;font-size:21px;font-weight:500}.ag.t{color:var(--ac)}.ag em{font-style:normal;font-weight:400}
+.ev{margin-top:8px;font-size:16px;font-weight:400;background:var(--card);border-left:4px solid var(--ac);padding:10px 12px;border-radius:4px}
+#ts{position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:#444;color:#fff;padding:10px 18px;border-radius:8px;font-size:15px;opacity:0;transition:opacity .2s;z-index:60;pointer-events:none;max-width:90%;text-align:center}
+#sp{position:fixed;inset:0;background:#fff;display:flex;align-items:center;justify-content:center;z-index:99;transition:opacity .45s}</style></head><body><div id="sp"><img src="icons/Outlook_Mobile-Logo.wine.svg" width="132" height="132" alt=""></div><div id="app"></div><div id="ts"></div>
+<script>
+const P={menu:"M3 6h18M3 12h18M3 18h18",search:"M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-5-5",bell:"M6 16v-5a6 6 0 0112 0v5l2 2H4zM10 21h4",back:"M19 12H5M11 6l-6 6 6 6",trash:"M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13",archive:"M3 4h18v4H3zM5 8v12h14V8M10 12h4",plus:"M12 5v14M5 12h14",mail:"M3 6h18v12H3zM3 7l9 7 9-7",cal:"M4 5h16v15H4zM4 10h16M8 3v4M16 3v4",ppl:"M9 11a3 3 0 100-6 3 3 0 000 6zM3 20c0-4 3-6 6-6s6 2 6 6M17 10a2.5 2.5 0 100-5M21 19c0-3-1.5-4.5-3-5",reply:"M9 8l-5 5 5 5M4 13h10a6 6 0 016 6",send:"M3 11l18-8-8 18-2-8z",x:"M5 5l14 14M19 5L5 19",inbox:"M3 13l3-8h12l3 8v6H3zM3 13h5l1 3h6l1-3h5",junk:"M12 3a9 9 0 100 18 9 9 0 000-18zM6 6l12 12",pencil:"M4 20l1-5L16 4l4 4L9 19z",folder:"M3 6h7l2 2h9v11H3z",gear:"M12 9a3 3 0 100 6 3 3 0 000-6zM12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"};
+const ic=(n,s=24)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="${P[n]}"/></svg>`;
+const btn=(i,a)=>`<button data-a="${a}">${ic(i)}</button>`;
+const $=s=>document.querySelector(s),app=$('#app'),K='outlook-clone.v1';
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const uid=()=>Math.random().toString(36).slice(2,9),pad=n=>String(n).padStart(2,'0');
+const FO=[['inbox','Inbox','inbox'],['junk','Junk Email','junk'],['drafts','Drafts','pencil'],['sent','Sent Items','send'],['deleted','Deleted Items','trash'],['notes','Notes','folder'],['archive','Archive','archive'],['hist','Conversation History','folder']];
+const FN=Object.fromEntries(FO.map(f=>[f[0],f[1]]));
+let S,V;
+const at=(o,h,m)=>{const d=new Date();d.setHours(h,m,0,0);d.setDate(d.getDate()+o);return d.getTime()};
+function seed(){
+ const X={name:'onlinecourses@nptel.iitm.ac.in',email:'onlinecourses@nptel.iitm.ac.in'},NT={name:'NPTEL Team',email:'noc@nptel.iitm.ac.in'},SP={name:'SharePoint Online',email:'no-reply@sharepoint.com'},SB={name:'Supabase',email:'hello@supabase.com'},MW={name:'MathWorks',email:'info@mathworks.com'};
+ const mk=(from,subj,body,date,un=1,ext=1)=>({id:uid(),tid:uid(),from,to:['me'],subj,body,date,folder:'inbox',unread:!!un,ext:!!ext});
+ const SG='p1',R=uid(),sm=(subj,body,date)=>({id:uid(),tid:uid(),from:'me',to:[{name:'SETHURAMAN R G',email:'sethuraman@kct.ac.in'}],subj,body,date,folder:'sent',unread:false});
+ return{me:{name:'Lohith G 25BCS196',email:'lohith.25cs@kct.ac.in',photo:''},
+ people:[{id:SG,name:'SETHURAMAN R G',email:'sethuraman@kct.ac.in',photo:''}],events:[],
+ msgs:[
+ mk(X,'October 2026 NPTEL Exams - Hall Tickets Released!','Dear learners,\n\nYour hall tickets for the October 2026 NPTEL exams are now available. Please download them and carry a printed copy with a valid photo ID.\n\n-NPTEL Team',at(0,17,59)),
+ mk(NT,'FINAL October 2026 NPTEL Exams – Hall Tickets, Centre Details','Dear learners,\n\nThis is the final reminder with exam centre details and reporting time. Please check your hall ticket.\n\n-NPTEL Team',at(0,17,51)),
+ mk(SP,"Mukesh Madhu 25BCS217 wants to access 'Tamil_Computing'",'Mukesh Madhu 25BCS217 is requesting access to the shared folder. Approve or deny the request.',at(0,17,9),0),
+ mk(X,'Survey on Problem Solving sessions - Data Structures and Algorithms Design','Dear learners,\n\nPlease take two minutes to fill the feedback survey on the problem solving sessions.\n\n-NPTEL Team',at(0,10,42),0),
+ mk(SB,'Supa Update October 2026','This month at Supabase: new features, improvements and community highlights.',at(-1,15,20)),
+ mk(X,'Data Structures and Algorithms Design : Problem solving Session Reminder !!','Dear learners,\n\nThere will be a live interactive session where a Course team member will explain some sample problems and how they are solved - that will help you solve the weekly assignments.\n\nDate: Oct 13, 2026 - Tuesday\nTime: 07.00 PM - 09.00 PM\n\nHappy Learning.\n\n-NPTEL Team',at(-2,17,33)),
+ mk(NT,'October 2026 NPTEL Exams – Hall Tickets, Centre Details','Dear learners,\n\nHall tickets and centre details will be released shortly.\n\n-NPTEL Team',at(-2,12,5),0),
+ mk(MW,'MATLAB and Simulink Release 2026b','Release 2026b is now available with new features across MATLAB and Simulink.',at(-3,9,30)),
+ {id:uid(),tid:R,from:'me',to:[{name:'SETHURAMAN R G',email:'sethuraman@kct.ac.in'},{name:'BOOBAL A',email:'boobal@kct.ac.in'},{name:'RAMESH V',email:'ramesh@kct.ac.in'}],subj:'Request for approval - regn',body:'Respected Sir,\n\nI would like to request your approval to leave the campus from today (2:00 PM) until 31st May for visiting my hometown.\n\nCampus Leaving Time: 26/05/26 on 2:00 PM\nCampus Arrival Time: Before 8:00 AM on 31st May\n\nI assure you that I will return to campus on time and\nKindly grant me permission for the same.\n\nThank you.\n\nRegards,\nLohith G\n25BCS196',date:new Date(2026,4,26,8,40).getTime(),folder:'sent',unread:false},
+ {id:uid(),tid:R,from:SG,to:['me'],subj:'Request for approval - regn',body:'Ok Approved',date:new Date(2026,4,26,9,1).getTime(),folder:'inbox',unread:false},
+ sm('Request for Hostel Stay Permission – Internship','Respected Sir, I am writing to seek your kind permission to stay in the hostel during my internship period.',new Date(2026,5,9,10,0).getTime()),
+ sm('Request for Leave','Dear Sir/Madam, I would like to request leave for tomorrow, as I have an urgent personal commitment.',new Date(2026,3,21,18,0).getTime())]}}
+function ld(){try{S=JSON.parse(localStorage.getItem(K))}catch(e){}if(!S||!S.me)S=seed();S.events=S.events||[]}
+function sv(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){toast('Storage is full')}}
+function initV(){V={tab:'mail',folder:'inbox',tid:null,c:null,s:null,dr:false,sr:false,q:''}}
+const who=r=>r==='me'?S.me:S.people.find(p=>p.id===r)||(r&&typeof r==='object'?r:{name:'Deleted contact',email:''});
+const tos=m=>m.to.map(t=>t==='me'?S.me:t);
+const PL=['#0f4c8a','#9bb02a','#6b3fb5','#0aa5a0','#c2410c','#b4234f'];
+function av(p,z=56){const n=p.name||'?';if(p.photo)return`<img class="av" style="width:${z}px;height:${z}px" src="${p.photo}" alt="">`;let h=0;for(const c of n)h=(h*31+c.charCodeAt(0))%97;const w=n.split(/[\s@]+/).filter(Boolean);const i=((w[0]||'?')[0]+(!n.includes('@')&&w[1]?w[1][0]:'')).toUpperCase();return`<span class="av" style="width:${z}px;height:${z}px;background:${PL[h%6]};font-size:${Math.round(z*.38)}px">${esc(i)}</span>`}
+const mon=d=>d.toLocaleString('en',{month:'short'});
+function tl(t){const d=new Date(t),n=new Date();if(d.toDateString()===n.toDateString())return pad(d.getHours())+':'+pad(d.getMinutes());return d.getDate()+' '+mon(d)+(d.getFullYear()==n.getFullYear()?'':' '+d.getFullYear())}
+function sec(t){const ds=a=>new Date(a).setHours(0,0,0,0),n=Date.now(),df=Math.round((ds(n)-ds(t))/864e5);if(df<=0)return'';if(df==1)return'Yesterday';if(df<7)return'This week';const d=new Date(t);return d.getFullYear()==new Date().getFullYear()?d.toLocaleString('en',{month:'long'}):String(d.getFullYear())}
+function full(t){const d=new Date(t);return d.toLocaleString('en',{weekday:'short'})+' '+pad(d.getDate())+'-'+pad(d.getMonth()+1)+'-'+d.getFullYear()+' '+pad(d.getHours())+':'+pad(d.getMinutes())}
+function threads(f){const g={};S.msgs.forEach(m=>{if(m.folder===f)(g[m.tid]=g[m.tid]||[]).push(m)});return Object.values(g).map(a=>a.sort((x,y)=>x.date-y.date)).sort((a,b)=>b.at(-1).date-a.at(-1).date)}
+function row(a){const l=a.at(-1),un=a.some(m=>m.unread);let p,nm;if(V.folder==='sent'||V.folder==='drafts'){const t=tos(l)[0];p=S.people.find(x=>x.email===t.email)||t;nm=t.name}else{p=who(l.from);nm=p.name}
+return`<div class="rw" data-a="open" data-i="${l.tid}">${un?'<i class="dot"></i>':''}${av(p)}<div class="rb"><div class="r1"><b class="el">${esc(nm)}</b><span class="tm ${un?'u':''}">${tl(l.date)}</span></div><div class="r2 el ${un?'u':''}">${esc(l.subj)}</div><div class="r3 el">${l.ext?'CAUTION: This email has originated from outside of the org…':esc(l.body.replace(/\s+/g,' '))}</div></div></div>`}
+function listH(){let a=threads(V.folder);const q=V.q.toLowerCase();if(q)a=a.filter(t=>t.some(m=>(m.subj+m.body+who(m.from).name).toLowerCase().includes(q)));
+if(!a.length)return`<div class="em">${ic('mail',56)}<div>${V.q?'No results':'Nothing in '+FN[V.folder]}</div></div>`;let h='',p='';a.forEach(t=>{const s=sec(t.at(-1).date);if(s!==p){if(s)h+=`<div class="sec">${s}</div>`;p=s}h+=row(t)});return h}
+function card(m){const f=who(m.from);return`<div class="mc"><div class="mh">${av(f,44)}<div style="min-width:0"><div class="mn">${esc(f.name)}</div><div class="ms el">To: ${esc(tos(m).map(t=>t.name).join('; '))}</div><div class="md">${full(m.date)}</div></div></div>${m.ext?'<div class="caut"><b>CAUTION:</b> This email has originated from outside of the organization. Do not click links or open attachments unless you recognize the sender and know the content is safe.</div>':''}<div class="mb">${esc(m.body)}</div></div>`}
+const thr=()=>S.msgs.filter(m=>m.tid===V.tid).sort((x,y)=>x.date-y.date);
+function threadV(){const a=thr();return`<div class="ov"><div class="hd">${btn('back','back')}<span class="sp"></span>${btn('trash','del')}${btn('archive','arch')}</div><div class="sc"><h2 class="sj">${esc(a[0].subj)}</h2>${a.map(card).join('')}</div><div class="rp"><button data-a="reply">${ic('reply',22)}Reply</button></div></div>`}
+function compV(){const c=V.c,me=c.from==='me';const ch=[['me','Me'],...S.people.map(p=>[p.id,p.name])];
+return`<div class="ov"><div class="hd">${btn('x','cx')}<span class="ti">${c.tid?'Reply':'New message'}</span><span class="sp"></span>${btn('send','send')}</div><div class="sc"><div class="fr"><label>From</label><div class="chips">${ch.map(([i,n])=>`<button class="ch ${c.from===i?'on':''}" data-a="from" data-i="${i}">${esc(n)}</button>`).join('')}<button class="ch" data-a="np">+ New person</button></div></div><div class="fr"><label>To</label><input id="cto" inputmode="email" placeholder="Add recipient email" value="${esc(me?c.to:S.me.email)}" ${me?'':'disabled'}></div><div class="fr"><label>Subj</label><input id="csub" placeholder="Add a subject" value="${esc(c.subj)}"></div>${me?'':`<div class="hint">Simulated: this arrives in your Inbox as ${esc(who(c.from).name)}. Nothing leaves the app.</div>`}<textarea id="cbody" placeholder="Write a message">${esc(c.body)}</textarea></div></div>`}
+function sheetV(){const s=V.s;let b;
+if(s.kind==='ev')b=`<h3>New event</h3><label>Title</label><input id="et" value="${esc(s.title)}"><label>Date</label><input id="ed" type="date" value="${s.date}"><label>Time</label><input id="etm" type="time" value="${s.time}"><div class="bt"><button class="pr" data-a="ss">Save</button></div>`;
+else b=`<h3>${s.kind==='me'?'Your profile':s.id?'Edit contact':'New contact'}</h3><div class="pv" data-a="pick">${av(s,84)}<span>Change photo</span></div><input type="file" id="pf" accept="image/*" hidden><label>Name</label><input id="sn" value="${esc(s.name)}"><label>Email</label><input id="se" inputmode="email" value="${esc(s.email)}"><div class="bt"><button class="pr" data-a="ss">Save</button>${s.photo?'<button data-a="rp2">Remove photo</button>':''}${s.kind==='person'&&s.id?'<button class="dg" data-a="dp">Delete contact</button>':''}${s.kind==='me'?'<button class="dg" data-a="rst">Reset demo data</button>':''}</div>`;
+return`<div class="bk" data-a="sx"></div><div class="sh">${b}</div>`}
+function drV(){const n=S.msgs.filter(m=>m.folder==='inbox'&&m.unread).length;return`<div class="bk" data-a="dr"></div><div class="dw"><div class="dh">Folders</div>${FO.map(([i,t,c])=>`<div class="fo ${V.folder===i?'on':''}" data-a="fo" data-i="${i}">${ic(c)}<span>${t}</span>${i==='inbox'&&n?`<b class="cn">${n}</b>`:''}</div>`).join('')}<hr><div class="fo" data-a="me">${ic('gear')}<span>Settings &amp; profile</span></div></div>`}
+const isoOf=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+function calV(){const n=new Date(),sun=new Date(n);sun.setDate(n.getDate()-n.getDay());let wk='',ag='';
+for(let i=0;i<7;i++){const d=new Date(sun);d.setDate(sun.getDate()+i);wk+=`<div class="wd"><small>${'SMTWTFS'[i]}</small><span class="${d.toDateString()===n.toDateString()?'td':''}">${d.getDate()}</span></div>`}
+for(let i=0;i<30;i++){const d=new Date(n);d.setDate(n.getDate()+i);const ev=S.events.filter(e=>e.date===isoOf(d)).sort((a,b)=>a.time<b.time?-1:1);ag+=`<div class="ag ${i?'':'t'}">${d.getDate()} ${d.toLocaleString('en',{weekday:'long'})}${i<2?' <em>'+(i?'Tomorrow':'Today')+'</em>':''}${ev.map(e=>`<div class="ev">${e.time} · ${esc(e.title)}</div>`).join('')}</div>`}
+return`<div class="hd">${btn('menu','dr')}<span class="ti">${n.toLocaleString('en',{month:'long'})}</span><span class="sp"></span>${btn('search','srch')}<span data-a="me" class="hav">${av(S.me,34)}</span></div><div class="wk">${wk}</div><div class="sc">${ag}</div>`}
+function pplV(){return`<div class="hd">${btn('menu','dr')}<span class="ti">People</span><span class="sp"></span>${btn('search','srch')}<span data-a="me" class="hav">${av(S.me,34)}</span></div><div class="sc">${S.people.length?S.people.map(p=>`<div class="rw" data-a="ed" data-i="${p.id}" style="padding-left:16px">${av(p,48)}<div class="rb"><div class="r1"><b class="el">${esc(p.name)}</b></div><div class="r3 el">${esc(p.email)}</div></div></div>`).join(''):`<div class="em">${ic('ppl',64)}<h2 style="color:var(--tx);margin:0">No contacts</h2><div>Start by adding contacts to your list.</div><div class="bt"><button class="pr" data-a="np">Add a contact</button></div></div>`}</div>`}
+function render(){const t=V.tab;let h;
+if(t==='mail')h=`<div class="hd">${btn('menu','dr')}${V.sr?`<input id="q" class="qi" placeholder="Search mail" value="${esc(V.q)}">`:`<span class="ti">${FN[V.folder]}</span><span class="sp"></span>`}${btn('search','srch')}${V.sr?'':btn('bell','bell')}<span data-a="me" class="hav">${av(S.me,34)}</span></div><div class="sc" id="lst">${listH()}</div>`;
+else h=t==='cal'?calV():pplV();
+const tabs=[['mail','Email','mail'],['cal','Calendar','cal'],['ppl','People','ppl']].map(([i,n,c])=>`<button class="${t===i?'on':''}" data-a="tab" data-i="${i}">${ic(c)}${n}</button>`).join('');
+app.innerHTML=h+`<button class="fab" data-a="${t==='mail'?'new':t==='cal'?'ev':'np'}">${ic('plus',30)}</button><div class="tb">${tabs}</div>`+(V.dr?drV():'')+(V.tid?threadV():'')+(V.c?compV():'')+(V.s?sheetV():'');
+if(V.sr&&$('#q'))$('#q').focus()}
+function toast(m){const e=$('#ts');e.textContent=m;e.style.opacity=1;clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.opacity=0,2400)}
+function snap(){if(V.c&&$('#cto')){V.c.to=$('#cto').value;V.c.subj=$('#csub').value;V.c.body=$('#cbody').value}}
+function snapS(){const s=V.s;if(!s||!$('#sh,.sh'))return;if(s.kind==='ev'){s.title=$('#et').value;s.date=$('#ed').value;s.time=$('#etm').value}else{s.name=$('#sn').value;s.email=$('#se').value}}
+function send(){snap();const c=V.c,me=c.from==='me';let to;
+if(me){const e=c.to.trim();if(!/^\S+@\S+\.\S+$/.test(e)){toast('Enter a valid recipient email');return}const p=S.people.find(p=>p.email.toLowerCase()===e.toLowerCase());to=[{name:p?p.name:e,email:e}]}else to=['me'];
+if(!c.body.trim()&&!c.subj.trim()){toast('Write something first');return}
+const tid=c.tid||uid();S.msgs=S.msgs.filter(m=>m.id!==c.draft);S.msgs.push({id:uid(),tid,from:c.from,to,subj:c.subj.trim()||'(no subject)',body:c.body,date:Date.now(),folder:me?'sent':'inbox',unread:!me,ext:false});sv();
+const nm=who(c.from).name;V.c=null;toast(me?'Sent — saved only inside this app':'Delivered to Inbox as '+nm);render()}
+function saveS(){snapS();const s=V.s;
+if(s.kind==='ev'){if(!s.title.trim()){toast('Add a title');return}S.events.push({id:uid(),title:s.title.trim(),date:s.date,time:s.time})}
+else{if(!s.name.trim()||!/^\S+@\S+\.\S+$/.test(s.email.trim())){toast('Enter a name and a valid email');return}const d={name:s.name.trim(),email:s.email.trim(),photo:s.photo||''};
+if(s.kind==='me')S.me=d;else if(s.id)Object.assign(S.people.find(p=>p.id===s.id),d);else S.people.push({id:uid(),...d})}
+sv();V.s=null;render()}
+function act(a,i){switch(a){
+case'tab':V.tab=i;V.sr=false;V.q='';break;
+case'dr':V.dr=!V.dr;break;
+case'fo':V.folder=i;V.tab='mail';V.dr=false;V.sr=false;V.q='';break;
+case'open':if(V.folder==='drafts'){const d=S.msgs.find(m=>m.tid===i);V.c={draft:d.id,tid:d.dtid||null,from:d.from,to:d.from==='me'?(d.to[0].email||''):'',subj:d.subj==='(no subject)'?'':d.subj,body:d.body};break}V.tid=i;S.msgs.forEach(m=>{if(m.tid===i)m.unread=false});sv();break;
+case'back':V.tid=null;break;
+case'del':case'arch':S.msgs.forEach(m=>{if(m.tid===V.tid)m.folder=a==='del'?'deleted':'archive'});sv();V.tid=null;toast(a==='del'?'Moved to Deleted Items':'Archived');break;
+case'new':V.c={tid:null,from:'me',to:'',subj:'',body:''};break;
+case'reply':{const a2=thr(),l=a2.at(-1),o=[...a2].reverse().find(m=>m.from!=='me');const to=o?who(o.from).email:(tos(l)[0]||{}).email||'';V.c={tid:V.tid,from:'me',to,subj:/^re:/i.test(l.subj)?l.subj:'RE: '+l.subj,body:''};break}
+case'cx':snap();if(V.c.body.trim()||V.c.subj.trim()){const c=V.c;S.msgs=S.msgs.filter(m=>m.id!==c.draft);S.msgs.push({id:c.draft||uid(),tid:uid(),dtid:c.tid,from:c.from,to:c.from==='me'?[{name:c.to||'(No recipient)',email:c.to}]:['me'],subj:c.subj.trim()||'(no subject)',body:c.body,date:Date.now(),folder:'drafts',unread:false});sv();toast('Draft saved')}V.c=null;break;
+case'from':snap();V.c.from=i;break;
+case'send':return send();
+case'me':V.s={kind:'me',...S.me};V.dr=false;break;
+case'ed':V.s={kind:'person',...S.people.find(p=>p.id===i)};break;
+case'np':snap();V.s={kind:'person',id:'',name:'',email:'',photo:''};break;
+case'ev':V.s={kind:'ev',title:'',date:isoOf(new Date()),time:'09:00'};break;
+case'pick':$('#pf').click();return;
+case'rp2':snapS();V.s.photo='';break;
+case'ss':return saveS();
+case'dp':S.people=S.people.filter(p=>p.id!==V.s.id);sv();V.s=null;break;
+case'rst':localStorage.removeItem(K);ld();initV();toast('Demo data restored');break;
+case'sx':V.s=null;break;
+case'srch':V.sr=!V.sr;V.q='';break;
+case'bell':toast('No new notifications');return}
+render()}
+document.addEventListener('click',e=>{const a=e.target.closest('[data-a]');if(a)act(a.dataset.a,a.dataset.i)});
+document.addEventListener('input',e=>{if(e.target.id==='q'){V.q=e.target.value;$('#lst').innerHTML=listH()}});
+document.addEventListener('change',e=>{if(e.target.id!=='pf')return;const f=e.target.files[0];if(!f)return;snapS();const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas'),z=160,s=Math.min(im.width,im.height);c.width=c.height=z;c.getContext('2d').drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,0,0,z,z);V.s.photo=c.toDataURL('image/jpeg',.82);render()};im.src=r.result};r.readAsDataURL(f)});
+ld();initV();render();
+setTimeout(()=>{const s=$('#sp');s.style.opacity=0;setTimeout(()=>s.remove(),500)},900);
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+</script></body></html>
